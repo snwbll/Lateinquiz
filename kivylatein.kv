@@ -1,0 +1,841 @@
+﻿#:import COLOR kivy.utils.get_color_from_hex
+#:set RED "#F94A69"
+#:set GREEN "#06A5AB"
+#:set BLUE "#278FDD"
+#:set NONE "#162038"
+
+<CheckBox@CheckBox>:
+    size_hint: 0.2, 0.07
+
+<TextInput@TextInput>:
+    markup: True
+
+<WrappedLabel@Label>:
+	size_hint_y: None
+	height: self.texture_size[1] + (self.texture_size[1]/0.6)
+	markup: True
+    font_name: "Roboto"
+
+<LearnLabel@Label>:
+    size_hint_y: None
+	height: self.texture_size[1] + (self.texture_size[1]/2)
+	markup: True
+    font_name: "Roboto"
+
+<NormalButton@Button>:
+    font_name: "Roboto"
+    font_size: min(self.height, self.width) / 5
+    bold: True
+    background_normal: "./images/button_normal.png"
+    background_down: "./images/button_down.png"
+    background_color: COLOR(BLUE)
+    border: (2, 2, 2, 2)
+
+<KivyLateinRoot>:
+	orientation: "vertical"
+	quiz_screen: quiz_screen
+
+	ScreenManager:
+		id: screen_manager
+		StartScreen:
+			name: "start_screen"
+		AboutScreen:
+			id: about_screen
+			name: "about_screen"
+		QuizScreen:
+		    id: quiz_screen
+		    name: "quiz_screen"
+		VokabelnScreen:
+		    id: vokabeln_screen
+		    name: "vokabeln_screen"
+		GrammatikScreen:
+		    id: grammatik_screen
+		    name: "grammatik_screen"
+        StatisticsScreen:
+            id: statistics_screen
+            name: "statistics_screen"
+        InfoScreen:
+            id: info_screen
+            name: "info_screen"
+        GrammatikauswahlScreen:
+            id: grammatik_auswahl_screen
+            name: "grammatikauswahl_screen"
+        KonjugationsScreen:
+            id: konjugations_screen
+            name: "konjugations_screen"
+        PPAScreen:
+            id: ppa_screen
+            name: "ppa_screen"
+
+<StartScreen@Screen>:
+	BoxLayout:
+		# startscreen für die auswahl
+		orientation: "vertical"
+		padding: root.width * .02, root.height * .02
+		spacing: min(root.width, root.height) * .02
+		WrappedLabel:
+			text: "[b]Latein Vokabeltrainer[/b]"
+			font_size: min(root.height, root.width) / 10
+		NormalButton:
+			text: "Quiz"
+		    on_release: app.root.changeScreen(self.text.lower())
+		NormalButton:
+			text: "Vokabeln"
+			background_color: COLOR(GREEN)
+		    on_release: app.root.changeScreen(self.text.lower())
+		NormalButton:
+			text: "Grammatik"
+			background_color: COLOR(GREEN)
+		    on_release: app.root.changeScreen(self.text.lower())
+		NormalButton:
+			text: "Über diese App"
+			background_color: COLOR(RED)
+			on_release: app.root.changeScreen("about")
+
+<GrammatikauswahlScreen@Screen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: root.width * .02, root.height * .02
+		spacing: min(root.width, root.height) * .02
+        WrappedLabel:
+			text: "[b]Grammatik[/b]"
+			font_size: min(root.height, root.width) / 10
+        NormalButton:
+		    text: "Deklinationen"
+		    background_color: COLOR(BLUE)
+		    on_release: app.root.changeScreen(self.text.lower())
+        NormalButton:
+            text: "Konjugationen"
+            background_color: COLOR(GREEN)
+            on_release: app.root.changeScreen("konjugationen")
+        NormalButton:
+            text: "PPA"
+            background_color: COLOR(RED)
+            on_release: app.root.changeScreen("ppa")
+
+<KonjugationsScreen@Screen>:
+    FloatLayout:
+        WrappedLabel:
+            id: kon
+            size_hint: 0.8, 0.3
+            pos_hint: {'center_x': 0.5, 'center_y': 0.96}
+            text: "[b]" + root.klasse + "[/b]"
+        WrappedLabel:
+            id: kon
+            size_hint: 0.8, 0.3
+            pos_hint: {'center_x': 0.5, 'center_y': 0.91}
+            text: root.konjugation + " - Konjugation, " + root.aktivpassiv
+        WrappedLabel:
+            text: "1.P. Singular"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.2, 'center_y': 0.84}
+        WrappedLabel:
+            text: "2.P. Singular"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.2, 'center_y': 0.73}
+        WrappedLabel:
+            text: "3.P. Singular"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.2, 'center_y': 0.62}
+        WrappedLabel:
+            text: "1.P. Plural"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.2, 'center_y': 0.51}
+        WrappedLabel:
+            text: "2.P Plural"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.2, 'center_y': 0.40}
+        WrappedLabel:
+            text: "3.P Plural"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.2, 'center_y': 0.29}
+
+        WrappedLabel:
+            text: "[b]" + root.beispieleins + "[/b]"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.5, 'center_y': 0.84}
+        WrappedLabel:
+            text: "[b]" + root.beispiel + "[/b]"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.5, 'center_y': 0.73}
+        WrappedLabel:
+            text: "[b]" + root.beispiel + "[/b]"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.5, 'center_y': 0.62}
+        WrappedLabel:
+            text: "[b]" + root.beispiel + "[/b]"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.5, 'center_y': 0.51}
+        WrappedLabel:
+            text: "[b]" + root.beispiel + "[/b]"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.5, 'center_y': 0.40}
+        WrappedLabel:
+            text: "[b]" + root.beispiel + "[/b]"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.5, 'center_y': 0.29}
+
+        TextInput:
+            id: erstesg
+            background_color: root.colorESG
+            text: root.erstepssg
+            size_hint: 0.28, 0.05
+            pos_hint: {'center_x': 0.78, 'center_y': 0.84}
+        TextInput:
+            id: zweitesg
+            background_color: root.colorZSG
+            text: root.zweitepssg
+            size_hint: 0.28, 0.05
+            pos_hint: {'center_x': 0.78, 'center_y': 0.73}
+        TextInput:
+            id: drittesg
+            background_color: root.colorDSG
+            text: root.drittepssg
+            size_hint: 0.28, 0.05
+            pos_hint: {'center_x': 0.78, 'center_y': 0.62}
+        TextInput:
+            id: erstepl
+            background_color: root.colorEPL
+            text: root.erstepspl
+            size_hint: 0.28, 0.05
+            pos_hint: {'center_x': 0.78, 'center_y': 0.51}
+        TextInput:
+            id: zweitepl
+            background_color: root.colorZPL
+            text: root.zweitepspl
+            size_hint: 0.28, 0.05
+            pos_hint: {'center_x': 0.78, 'center_y': 0.40}
+        TextInput:
+            id: drittepl
+            background_color: root.colorDPL
+            text: root.drittepspl
+            size_hint: 0.28, 0.05
+            pos_hint: {'center_x': 0.78, 'center_y': 0.29}
+
+        NormalButton:
+            size_hint: 0.26, 0.09
+            pos_hint: {'center_x': 0.2, 'center_y': 0.18}
+            text: "Check"
+            background_color: COLOR(GREEN)
+            on_release: root.check_kon(root.klasse, root.konjugation, root.aktivpassiv, erstesg.text, zweitesg.text, drittesg.text, erstepl.text, zweitepl.text, drittepl.text)
+        NormalButton:
+            size_hint: 0.26, 0.09
+            pos_hint: {'center_x': 0.5, 'center_y': 0.18}
+            background_color: COLOR(RED)
+            text: "Lösung"
+            on_release: root.loesung(root.klasse, root.konjugation, root.aktivpassiv)
+        NormalButton:
+            size_hint: 0.26, 0.09
+            pos_hint: {'center_x': 0.8, 'center_y': 0.18}
+            text: "Nächste"
+            on_press: root.next_kon(root.klasse)
+        NormalButton:
+            id: next
+            size_hint: 0.7, 0.1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.07}
+            text: root.naechste_kon
+            on_press: root.change_kon(self.text)
+
+<PPAScreen>:
+    FloatLayout:
+        WrappedLabel:
+            id: kon
+            size_hint: 0.8, 0.3
+            pos_hint: {'center_x': 0.5, 'center_y': 0.94}
+            text: "[b]" + root.klasse + "[/b]"
+        WrappedLabel:
+            size_hint: 0.8, 0.3
+            pos_hint: {'center_x': 0.5, 'center_y': 0.86}
+            text: root.person
+
+        WrappedLabel:
+            text: "Nom"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.15, 'center_y': 0.75}
+        WrappedLabel:
+            text: "Gen"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.15, 'center_y': 0.63}
+        WrappedLabel:
+            text: "Dat"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.15, 'center_y': 0.51}
+        WrappedLabel:
+            text: "Akk"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.15, 'center_y': 0.39}
+        WrappedLabel:
+            text: "Abl"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.15, 'center_y': 0.27}
+
+        WrappedLabel:
+            text: "[b]" + root.wort + "[/b]"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.45, 'center_y': 0.75}
+        WrappedLabel:
+            text: "[b]" + root.wort + "[/b]"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.45, 'center_y': 0.63}
+        WrappedLabel:
+            text: "[b]" + root.wort + "[/b]"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.45, 'center_y': 0.51}
+        WrappedLabel:
+            text: "[b]" + root.wort + "[/b]"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.45, 'center_y': 0.39}
+        WrappedLabel:
+            text: "[b]" + root.wort + "[/b]"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.45, 'center_y': 0.27}
+
+        TextInput:
+            id: NOM
+            background_color: root.colorN
+            text: root.NOM
+            size_hint: 0.25, 0.05
+            pos_hint: {'center_x': 0.7, 'center_y': 0.75}
+        TextInput:
+            id: GEN
+            background_color: root.colorG
+            text: root.GEN
+            size_hint: 0.25, 0.05
+            pos_hint: {'center_x': 0.7, 'center_y': 0.63}
+        TextInput:
+            id: DAT
+            background_color: root.colorD
+            text: root.DAT
+            size_hint: 0.25, 0.05
+            pos_hint: {'center_x': 0.7, 'center_y': 0.51}
+        TextInput:
+            id: AKK
+            background_color: root.colorA
+            text: root.AKK
+            size_hint: 0.25, 0.05
+            pos_hint: {'center_x': 0.7, 'center_y': 0.39}
+        TextInput:
+            id: ABL
+            background_color: root.colorAB
+            text: root.ABL
+            size_hint: 0.25, 0.05
+            pos_hint: {'center_x': 0.7, 'center_y': 0.27}
+        NormalButton:
+            size_hint: 0.26, 0.1
+            pos_hint: {'center_x': 0.2, 'center_y': 0.1}
+            text: "Check"
+            background_color: COLOR(GREEN)
+            on_release: root.check_kon("PPA, m/f", NOM.text, GEN.text, DAT.text, AKK.text, ABL.text)
+        NormalButton:
+            size_hint: 0.26, 0.1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+            background_color: COLOR(RED)
+            text: "Lösung"
+            on_release: root.loesung("PPA, m/f", "", "")
+        NormalButton:
+            size_hint: 0.26, 0.1
+            pos_hint: {'center_x': 0.8, 'center_y': 0.1}
+            font_size: min(self.height, self.width) / 5
+            text: "Nächste"
+            on_press: root.next_kon("PPA, m/f")
+
+<QuizScreen>:
+    question_text: question_text
+	FloatLayout:
+        size_hint: 1, 1
+		pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+		NormalButton:
+            size_hint: 0.3, 0.2
+            pos_hint: {'center_x': 0.16, 'center_y': 0.94}
+            text: "vorherige"
+            font_size: min(self.height, self.width) / 5
+            background_color: COLOR(NONE)
+            on_press: root.beforec()
+        NormalButton:
+            size_hint: 0.3, 0.2
+            background_color: COLOR(NONE)
+            pos_hint: {'center_x': 0.5, 'center_y': 0.94}
+            text: root.lektionsstatusc
+        NormalButton:
+            size_hint: 0.3, 0.2
+            pos_hint: {'center_x': 0.84, 'center_y': 0.94}
+            font_size: min(self.height, self.width) / 5
+            text: "nächste"
+            background_color: COLOR(NONE)
+            on_press: root.afterc()
+        WrappedLabel:
+            size_hint: 0.98, 0.15
+            pos_hint: {'center_x': 0.5, 'center_y': 0.86}
+            id: question_text
+            text: root.a
+            font_size: min(root.height, root.width) / 15
+        NormalButton:
+            size_hint: 0.98, 0.15
+            pos_hint: {'center_x': 0.5, 'center_y': 0.705}
+            text: root.vokabel_one
+            font_size: min(root.height, root.width) / 15
+            on_press: root.Buttonclicked1()
+            on_release: root.Popitup()
+        NormalButton:
+            size_hint: 0.98, 0.15
+            pos_hint: {'center_x': 0.5, 'center_y': 0.55}
+            text: root.vokabel_two
+            font_size: min(root.height, root.width) / 15
+            on_press: root.Buttonclicked2()
+            on_release: root.Popitup()
+        NormalButton:
+            size_hint: 0.98, 0.15
+            pos_hint: {'center_x': 0.5, 'center_y': 0.395}
+            text: root.vokabel_three
+            font_size: min(root.height, root.width) / 15
+            on_press: root.Buttonclicked3()
+            on_release: root.Popitup()
+        NormalButton:
+            size_hint: 0.98, 0.15
+            pos_hint: {'center_x': 0.5, 'center_y': 0.24}
+            text: root.vokabel_four
+            font_size: min(root.height, root.width) / 15
+            on_press: root.Buttonclicked4()
+            on_release: root.Popitup()
+        NormalButton:
+            size_hint: 0.98, 0.15
+            pos_hint: {'center_x': 0.5, 'center_y': 0.085}
+            text: "Überspringen"
+            font_size: min(root.height, root.width) / 15
+            background_color: COLOR(GREEN)
+            on_release: root.get_next()
+
+<QuizPopup>:
+    size_hint: .8, .8
+    title: "Lösung"
+    title_size: root.height * .05
+    seperator_color: COLOR(GREEN)
+    auto_dissmiss: False
+    message: message
+    wrapped_button: wrapped_button
+    BoxLayout:
+        orientation: "vertical"
+        padding: root.width * .02, root.height * .02
+        spacing: min(root.width, root.height) * .02
+        Label:
+            id: message
+            font_size: min(self.height, self.width) / 8
+            text: "Antworttext"
+            halign: "center"
+            markup: True
+            text_size: self.width, None
+            center_y: .5
+        NormalButton:
+            id: wrapped_button
+            text: "Schließen"
+            size_hint: 1, None
+            height: root.height / 8
+            on_release: root.dismiss()
+
+<InfoScreen@Screen>:
+    FloatLayout:
+        Label:
+			text: app.getText()
+			halign: "center"
+			pos_hint: {"center_x": .5, "center_y": .6}
+			markup: True
+			font_size: root.height / 24
+			text_size: self.width, None
+			on_ref_press: app.on_ref_press(*args)
+	    Label:
+	        text: app.getPlaystorelink()
+	        halign: "center"
+	        pos_hint: {"center_x": .5, "center_y": .15}
+			markup: True
+			font_size: root.height / 24
+			text_size: self.width, None
+			on_ref_press: app.on_ref_press(*args)
+
+<AboutScreen@Screen>:
+	BoxLayout:
+	    orientation: "vertical"
+		padding: root.width * .02, root.height * .02
+		spacing: min(root.width, root.height) * .02
+		Label:
+		    markup: True
+		    font_size: min(root.height, root.width) / 10
+		    text: "[b]Über diese App[/b]"
+		NormalButton:
+		    text: "Info"
+            background_color: COLOR(GREEN)
+            on_release: app.root.changeScreen(self.text.lower())
+        NormalButton:
+            text: "How to"
+            on_press: root.display_help_screen()
+        NormalButton:
+            text: "Statistiken"
+            background_color: COLOR(RED)
+            on_release: app.root.changeScreen(self.text.lower())
+
+<StatisticsScreen@Screen>:
+    FloatLayout:
+        WrappedLabel:
+            text: "[b]" + "Statistiken" + "[/b]"
+            size_hint: 0.9, 0.15
+            pos_hint: {'center_x': 0.5, 'center_y': 0.90}
+        NormalButton:
+            text: root.stats_falsch
+            background_color: COLOR(RED)
+            size_hint: 0.4, 0.2
+            pos_hint: {'center_x': 0.3, 'center_y': 0.73}
+        NormalButton:
+            text: root.stats_richtig
+            background_color: COLOR(GREEN)
+            size_hint: 0.4, 0.2
+            pos_hint: {'center_x': 0.7, 'center_y': 0.73}
+        WrappedLabel:
+            text: "Quizfragen gesamt: " + "[b]" + root.insg + "[/b]"
+            size_hint: 0.8, 0.2
+            pos_hint: {'center_x': 0.5, 'center_y': 0.58}
+
+        NormalButton:
+            text: root.stats_falsch_gr
+            background_color: COLOR(RED)
+            size_hint: 0.4, 0.2
+            pos_hint: {'center_x': 0.3, 'center_y': 0.38}
+        NormalButton:
+            text: root.stats_richtig_gr
+            background_color: COLOR(GREEN)
+            size_hint: 0.4, 0.2
+            pos_hint: {'center_x': 0.7, 'center_y': 0.38}
+        WrappedLabel:
+            text: "Grammatikfragen gesamt: " + "[b]" + root.insggr + "[/b]"
+            size_hint: 0.8, 0.2
+            pos_hint: {'center_x': 0.5, 'center_y': 0.23}
+
+        NormalButton:
+            text: "Aktualisieren"
+            size_hint: 0.8, 0.1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+            on_press: root.get_stats_update()
+
+<GrammatikScreen@Screen>:
+    orientation: "vertical"
+    FloatLayout:
+        WrappedLabel:
+            size_hint: 0.8, 0.3
+            pos_hint: {'center_x': 0.5, 'center_y': 0.94}
+            text: "[b]" + root.klasse + "[/b]"
+        WrappedLabel:
+            text: "Singular"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.4, 'center_y': 0.85}
+        WrappedLabel:
+            text: "Plural"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.7, 'center_y': 0.85}
+        WrappedLabel:
+            text: "Nom"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.15, 'center_y': 0.75}
+        WrappedLabel:
+            text: "Gen"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.15, 'center_y': 0.63}
+        WrappedLabel:
+            text: "Dat"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.15, 'center_y': 0.51}
+        WrappedLabel:
+            text: "Akk"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.15, 'center_y': 0.39}
+        WrappedLabel:
+            text: "Abl"
+            size_hint: 0.3, 0.15
+            pos_hint: {'center_x': 0.15, 'center_y': 0.27}
+
+        TextInput:
+            id: NS
+            background_color: root.colorNS
+            text: root.NS
+            size_hint: 0.25, 0.1
+            pos_hint: {'center_x': 0.4, 'center_y': 0.75}
+        TextInput:
+            id: GS
+            background_color: root.colorGS
+            text: root.GS
+            size_hint: 0.25, 0.1
+            pos_hint: {'center_x': 0.4, 'center_y': 0.63}
+        TextInput:
+            id: DS
+            background_color: root.colorDS
+            text: root.DS
+            size_hint: 0.25, 0.1
+            pos_hint: {'center_x': 0.4, 'center_y': 0.51}
+        TextInput:
+            id: AKS
+            background_color: root.colorAKS
+            text: root.AKS
+            size_hint: 0.25, 0.1
+            pos_hint: {'center_x': 0.4, 'center_y': 0.39}
+        TextInput:
+            id: ABS
+            background_color: root.colorABS
+            text: root.ABS
+            size_hint: 0.25, 0.1
+            pos_hint: {'center_x': 0.4, 'center_y': 0.27}
+        TextInput:
+            id: NP
+            background_color: root.colorNP
+            text: root.NP
+            size_hint: 0.25, 0.1
+            pos_hint: {'center_x': 0.7, 'center_y': 0.75}
+        TextInput:
+            id: GP
+            background_color: root.colorGP
+            text: root.GP
+            size_hint: 0.25, 0.1
+            pos_hint: {'center_x': 0.7, 'center_y': 0.63}
+        TextInput:
+            id: DP
+            background_color: root.colorDP
+            text: root.DP
+            size_hint: 0.25, 0.1
+            pos_hint: {'center_x': 0.7, 'center_y': 0.51}
+        TextInput:
+            id: AKP
+            background_color: root.colorAKP
+            text: root.AKP
+            size_hint: 0.25, 0.1
+            pos_hint: {'center_x': 0.7, 'center_y': 0.39}
+        TextInput:
+            id: ABP
+            background_color: root.colorABP
+            text: root.ABP
+            size_hint: 0.25, 0.1
+            pos_hint: {'center_x': 0.7, 'center_y': 0.27}
+
+        NormalButton:
+            size_hint: 0.26, 0.1
+            pos_hint: {'center_x': 0.2, 'center_y': 0.1}
+            text: "Check"
+            background_color: COLOR(GREEN)
+            on_release: root.printTxt(NS.text, NP.text, GS.text, GP.text, DS.text, DP.text, AKS.text, AKP.text, ABS.text, ABP.text)
+        NormalButton:
+            size_hint: 0.26, 0.1
+            pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+            background_color: COLOR(RED)
+            text: "Lösung"
+            on_release: root.loesung(root.klasse)
+        NormalButton:
+            size_hint: 0.26, 0.1
+            pos_hint: {'center_x': 0.8, 'center_y': 0.1}
+            font_size: min(self.height, self.width) / 5
+            text: "Nächste"
+            on_press: root.next_dek()
+
+
+<VokabelnScreen@Screen>:
+    FloatLayout:
+        orientation: 'vertical'
+        FloatLayout:
+            NormalButton:
+                size_hint: 0.3, 0.2
+                pos_hint: {'center_x': 0.2, 'center_y': 0.94}
+                text: "vorherige"
+                font_size: min(self.height, self.width) / 5
+                background_color: COLOR(NONE)
+                on_press: root.before()
+            WrappedLabel:
+                size_hint: 0.3, 0.2
+                pos_hint: {'center_x': 0.5, 'center_y': 0.94}
+                text: "Vokabeln"
+            NormalButton:
+                size_hint: 0.3, 0.2
+                pos_hint: {'center_x': 0.8, 'center_y': 0.94}
+                font_size: min(self.height, self.width) / 5
+                text: "nächste"
+                background_color: COLOR(NONE)
+                on_press: root.after()
+        ScrollView:
+            size_hint: 1, .9
+            GridLayout:
+                size_hint: 1, None
+                height: self.minimum_height * 20
+                cols: 1
+                WrappedLabel:
+                    text: root.lektionstatus
+                GridLayout:
+                    size_hint: 1, None
+                    minimum_height: self.height
+                    spacing: 10
+                    cols: 2
+                    rows: 45
+                    LearnLabel:
+                        text: root.dv1
+                    LearnLabel:
+                        text: root.lv1
+                    LearnLabel:
+                        text: root.dv2
+                    LearnLabel:
+                        text: root.lv2
+                    LearnLabel:
+                        text: root.dv3
+                    LearnLabel:
+                        text: root.lv3
+                    LearnLabel:
+                        text: root.dv4
+                    LearnLabel:
+                        text: root.lv4
+                    LearnLabel:
+                        text: root.dv5
+                    LearnLabel:
+                        text: root.lv5
+                    LearnLabel:
+                        text: root.dv6
+                    LearnLabel:
+                        text: root.lv6
+                    LearnLabel:
+                        text: root.dv7
+                    LearnLabel:
+                        text: root.lv7
+                    LearnLabel:
+                        text: root.dv8
+                    LearnLabel:
+                        text: root.lv8
+                    LearnLabel:
+                        text: root.dv9
+                    LearnLabel:
+                        text: root.lv9
+                    LearnLabel:
+                        text: root.dv10
+                    LearnLabel:
+                        text: root.lv10
+                    LearnLabel:
+                        text: root.dv11
+                    LearnLabel:
+                        text: root.lv11
+                    LearnLabel:
+                        text: root.dv12
+                    LearnLabel:
+                        text: root.lv12
+                    LearnLabel:
+                        text: root.dv13
+                    LearnLabel:
+                        text: root.lv13
+                    LearnLabel:
+                        text: root.dv14
+                    LearnLabel:
+                        text: root.lv14
+                    LearnLabel:
+                        text: root.dv15
+                    LearnLabel:
+                        text: root.lv15
+                    LearnLabel:
+                        text: root.dv16
+                    LearnLabel:
+                        text: root.lv16
+                    LearnLabel:
+                        text: root.dv17
+                    LearnLabel:
+                        text: root.lv17
+                    LearnLabel:
+                        text: root.dv18
+                    LearnLabel:
+                        text: root.lv18
+                    LearnLabel:
+                        text: root.dv19
+                    LearnLabel:
+                        text: root.lv19
+                    LearnLabel:
+                        text: root.dv20
+                    LearnLabel:
+                        text: root.lv20
+                    LearnLabel:
+                        text: root.dv21
+                    LearnLabel:
+                        text: root.lv21
+                    LearnLabel:
+                        text: root.dv22
+                    LearnLabel:
+                        text: root.lv22
+                    LearnLabel:
+                        text: root.dv23
+                    LearnLabel:
+                        text: root.lv23
+                    LearnLabel:
+                        text: root.dv24
+                    LearnLabel:
+                        text: root.lv24
+                    LearnLabel:
+                        text: root.dv25
+                    LearnLabel:
+                        text: root.lv25
+                    LearnLabel:
+                        text: root.dv26
+                    LearnLabel:
+                        text: root.lv26
+                    LearnLabel:
+                        text: root.dv27
+                    LearnLabel:
+                        text: root.lv27
+                    LearnLabel:
+                        text: root.dv28
+                    LearnLabel:
+                        text: root.lv28
+                    LearnLabel:
+                        text: root.dv29
+                    LearnLabel:
+                        text: root.lv29
+                    LearnLabel:
+                        text: root.dv30
+                    LearnLabel:
+                        text: root.lv30
+                    LearnLabel:
+                        text: root.dv31
+                    LearnLabel:
+                        text: root.lv31
+                    LearnLabel:
+                        text: root.dv32
+                    LearnLabel:
+                        text: root.lv32
+                    LearnLabel:
+                        text: root.dv33
+                    LearnLabel:
+                        text: root.lv33
+                    LearnLabel:
+                        text: root.dv34
+                    LearnLabel:
+                        text: root.lv34
+                    LearnLabel:
+                        text: root.dv35
+                    LearnLabel:
+                        text: root.lv35
+                    LearnLabel:
+                        text: root.dv36
+                    LearnLabel:
+                        text: root.lv36
+                    LearnLabel:
+                        text: root.dv37
+                    LearnLabel:
+                        text: root.lv37
+                    LearnLabel:
+                        text: root.dv38
+                    LearnLabel:
+                        text: root.lv38
+                    LearnLabel:
+                        text: root.dv39
+                    LearnLabel:
+                        text: root.lv39
+                    LearnLabel:
+                        text: root.dv40
+                    LearnLabel:
+                        text: root.lv40
+                    LearnLabel:
+                        text: root.dv41
+                    LearnLabel:
+                        text: root.lv41
+                    LearnLabel:
+                        text: root.dv42
+                    LearnLabel:
+                        text: root.lv42
+                    LearnLabel:
+                        text: root.dv43
+                    LearnLabel:
+                        text: root.lv43
